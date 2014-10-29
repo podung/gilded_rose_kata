@@ -1,0 +1,4 @@
+My implementation of the Gilded Rose kata.
+
+Original Ruby Port: <http://https://github.com/professor/GildedRose/>
+Source: <http://iamnotmyself.com/2011/02/13/refactor-this-the-gilded-rose-kata/>
