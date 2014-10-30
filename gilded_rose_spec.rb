@@ -15,16 +15,12 @@ describe GildedRose do
 
     before do
       described.items = items
+      described.update_quality
     end
 
+    subject { described.items.find { |i| i.name == fine_cheese } }
+
     context "when standard items" do
-
-      subject { described.items.find { |i| i.name == fine_cheese } }
-
-      before do
-        described.update_quality
-      end
-
       context "with positive sell_in" do
         let(:items) { [ dexterity, elixir ] }
 
@@ -75,6 +71,21 @@ describe GildedRose do
             its(:quality) { should eq 0 }
           end
         end
+      end
+    end
+
+    context "aged brie" do
+      let(:items) { [ aged_brie ] }
+      let (:fine_cheese) { aged_brie.name }
+
+      context "increases in quality each day" do
+        its(:sell_in) { should eq 1 }
+        its(:quality) { should eq 1 }
+      end
+
+      context "when already at max quality" do
+        let (:items) { [ Item.new(aged_brie.name, 2, 50) ] }
+        its(:quality) { should eq 50 }
       end
     end
   end
