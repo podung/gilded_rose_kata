@@ -10,7 +10,7 @@ describe GildedRose do
   let(:backstage) { Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 20) }
   let(:conjured)  { Item.new("Conjured Mana Cake", 3, 6) }
 
-  describe "update_quality" do
+  describe "calling update_quality" do
     let(:described) { described_class.new }
 
     before do
@@ -18,26 +18,44 @@ describe GildedRose do
     end
 
     context "when standard items" do
-      let(:items) { [ dexterity, elixir ] }
+
+      subject { described.items.find { |i| i.name == fine_cheese } }
 
       before do
         described.update_quality
       end
 
-      subject { described.items.find { |i| i.name == fine_cheese } }
+      context "with positive sell_in" do
+        let(:items) { [ dexterity, elixir ] }
 
-      context "when +5 Dexterity Vest" do
-        let (:fine_cheese) { "+5 Dexterity Vest" }
+        context "when +5 Dexterity Vest" do
+          let (:fine_cheese) { dexterity.name }
 
-        its(:sell_in) { should eq 9 }
-        its(:quality) { should eq 19 }
+          its(:sell_in) { should eq 9 }
+          its(:quality) { should eq 19 }
+        end
+
+        context "when Elixir of the Mongoose" do
+          let (:fine_cheese) { elixir.name }
+
+          its(:sell_in) { should eq 4 }
+          its(:quality) { should eq 6 }
+        end
       end
 
-      context "when Elixir of the Mongoose" do
-        let (:fine_cheese) { "Elixir of the Mongoose" }
+      context "with expired sell_in quality degrades twice as fast" do
+        let(:items) { [ Item.new(name, 0, 10) ] }
+        let(:fine_cheese) { name }
 
-        its(:sell_in) { should eq 4 }
-        its(:quality) { should eq 6 }
+        context "dexterity" do
+          let(:name) { dexterity.name }
+          its(:quality) { should eq 8 }
+        end
+
+        context "elixir" do
+          let(:name) { elixir.name }
+          its(:quality) { should eq 8 }
+        end
       end
     end
   end
