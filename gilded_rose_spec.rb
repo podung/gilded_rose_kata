@@ -87,6 +87,14 @@ describe GildedRose do
         let (:items) { [ Item.new(aged_brie.name, 2, 50) ] }
         its(:quality) { should eq 50 }
       end
+
+      context "when expired" do
+        let(:items) { [ Item.new(aged_brie.name, 0, 20) ] }
+
+        context "quality increases twice as fast" do
+          its(:quality) { should eq 22 }
+        end
+      end
     end
   end
 end
