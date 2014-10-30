@@ -76,7 +76,7 @@ describe GildedRose do
 
     context "aged brie" do
       let(:items) { [ aged_brie ] }
-      let (:fine_cheese) { aged_brie.name }
+      let(:fine_cheese) { aged_brie.name }
 
       context "increases in quality each day" do
         its(:sell_in) { should eq 1 }
@@ -84,7 +84,7 @@ describe GildedRose do
       end
 
       context "when already at max quality" do
-        let (:items) { [ Item.new(aged_brie.name, 2, 50) ] }
+        let(:items) { [ Item.new(aged_brie.name, 2, 50) ] }
         its(:quality) { should eq 50 }
       end
 
@@ -95,6 +95,29 @@ describe GildedRose do
           its(:quality) { should eq 22 }
         end
       end
+    end
+
+    context "sulfuras" do
+      let(:fine_cheese) { sulfuras.name }
+
+      context "when not expired" do
+        let(:items) { [ Item.new(sulfuras.name, 3, 80) ] }
+
+        its(:quality) { should eq 80 }
+      end
+
+      context "when expired" do
+        let(:items) { [ Item.new(sulfuras.name, 0, 80) ] }
+
+        its(:quality) { should eq 80 }
+      end
+
+      context "if quality ever happened to be below 80" do
+        let(:items) { [ Item.new(sulfuras.name, 0, 35) ] }
+
+        its(:quality) { should eq 35 }
+      end
+
     end
   end
 end
