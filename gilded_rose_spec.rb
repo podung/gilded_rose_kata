@@ -43,18 +43,37 @@ describe GildedRose do
         end
       end
 
-      context "with expired sell_in quality degrades twice as fast" do
+      context "with expired sell_in" do
         let(:items) { [ Item.new(name, 0, 10) ] }
         let(:fine_cheese) { name }
 
-        context "dexterity" do
-          let(:name) { dexterity.name }
-          its(:quality) { should eq 8 }
-        end
+        context "its quality degrades twice as fast" do
+          context "dexterity" do
+            let(:name) { dexterity.name }
+            its(:quality) { should eq 8 }
+          end
 
-        context "elixir" do
-          let(:name) { elixir.name }
-          its(:quality) { should eq 8 }
+          context "elixir" do
+            let(:name) { elixir.name }
+            its(:quality) { should eq 8 }
+          end
+        end
+      end
+
+      context "with 0 quality" do
+        let(:items) { [ Item.new(name, 10, 0) ] }
+        let(:fine_cheese) { name }
+
+        context "its quality never goes below zero" do
+          context "dexterity" do
+            let(:name) { dexterity.name }
+            its(:quality) { should eq 0 }
+          end
+
+          context "elixir" do
+            let(:name) { elixir.name }
+            its(:quality) { should eq 0 }
+          end
         end
       end
     end
