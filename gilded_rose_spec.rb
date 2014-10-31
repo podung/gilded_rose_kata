@@ -117,7 +117,41 @@ describe GildedRose do
 
         its(:quality) { should eq 35 }
       end
+    end
 
+    context "Backstage Passes" do
+      let(:items) { [ item ] }
+      let(:fine_cheese) { backstage.name }
+
+      context "increases in quality each day" do
+        let(:item) { backstage }
+
+        its(:sell_in) { should eq 14 }
+        its(:quality) { should eq 21 }
+      end
+
+      context "when 10 days down to 6" do
+        10.downto(6) { |i|
+          context "when #{i} days should increase by 2" do
+            let(:item) { Item.new(backstage.name, i, 10) }
+            its(:quality) { should eq (12) }
+          end
+        }
+      end
+
+      context "when 5 days down to 1" do
+        5.downto(1) { |i|
+          context "when #{i} days should increase by 3" do
+            let(:item) { Item.new(backstage.name, i, 10) }
+            its(:quality) { should eq (13) }
+          end
+        }
+      end
+
+      context "when 0 days should go to 0" do
+        let(:item) { Item.new(backstage.name, 0, 10) }
+        its(:quality) { should eq (0) }
+      end
     end
   end
 end
