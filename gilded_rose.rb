@@ -28,7 +28,7 @@ class GildedRose
 
     @items.each { |item|
       if [DEXTERITY, ELIXIR, CONJURED].include? item.name
-        reduce_quality(item) if item.quality > 0
+        reduce_quality(item)
       end
 
       if [AGED_BRIE, BACKSTAGE].include? item.name
