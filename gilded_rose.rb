@@ -76,12 +76,4 @@ class GildedRose
   def reduce_sell_in(item)
     item.sell_in -= 1
   end
-
-  def quality_below(item, threshhold)
-    item.quality < threshhold
-  end
-
-  def quality_above(item, threshhold)
-    item.quality > threshhold
-  end
 end
