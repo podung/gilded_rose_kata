@@ -27,7 +27,7 @@ class GildedRose
       if (@items[i].name != AGED_BRIE && @items[i].name != BACKSTAGE)
         if (@items[i].quality > 0)
           if (@items[i].name != SULFURAS)
-            @items[i].quality = @items[i].quality - 1
+            reduce_quality(@items[i])
           end
         end
       else
@@ -70,4 +70,7 @@ class GildedRose
     end
   end
 
+  def reduce_quality(item)
+    item.quality -= 1
+  end
 end
