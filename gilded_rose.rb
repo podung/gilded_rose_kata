@@ -32,16 +32,16 @@ class GildedRose
         end
       else
         if (@items[i].quality < 50)
-          @items[i].quality = @items[i].quality + 1
+          increase_quality(@items[i])
           if (@items[i].name == BACKSTAGE)
             if (@items[i].sell_in < 11)
               if (@items[i].quality < 50)
-                @items[i].quality = @items[i].quality + 1
+                increase_quality(@items[i])
               end
             end
             if (@items[i].sell_in < 6)
               if (@items[i].quality < 50)
-                @items[i].quality = @items[i].quality + 1
+                increase_quality(@items[i])
               end
             end
           end
@@ -63,7 +63,7 @@ class GildedRose
           end
         else
           if (@items[i].quality < 50)
-            @items[i].quality = @items[i].quality + 1
+            increase_quality(@items[i])
           end
         end
       end
@@ -72,5 +72,9 @@ class GildedRose
 
   def reduce_quality(item)
     item.quality -= 1
+  end
+
+  def increase_quality(item)
+    item.quality += 1
   end
 end
