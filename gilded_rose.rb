@@ -8,6 +8,9 @@ class GildedRose
   BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert"
   CONJURED  = "Conjured Mana Cake"
 
+  MAX_QUALITY = 50
+  MIN_QUALITY = 0
+
   attr_accessor :items
   @items = []
 
@@ -62,11 +65,11 @@ class GildedRose
   end
 
   def reduce_quality(item)
-    item.quality -= 1 if item.quality > 0
+    item.quality -= 1 if item.quality > MIN_QUALITY
   end
 
   def increase_quality(item)
-    item.quality += 1 if item.quality < 50
+    item.quality += 1 if item.quality < MAX_QUALITY
   end
 
   def zero_out_quality(item)
