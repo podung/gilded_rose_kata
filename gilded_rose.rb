@@ -37,12 +37,8 @@ class GildedRose
 
       if item.name == BACKSTAGE
         increase_quality(item)
-        if (item.sell_in < 11)
-          increase_quality(item)
-        end
-        if (item.sell_in < 6)
-          increase_quality(item)
-        end
+        increase_quality(item) if item.sell_in < 11
+        increase_quality(item) if item.sell_in < 6
       end
 
       if (item.name != SULFURAS)
