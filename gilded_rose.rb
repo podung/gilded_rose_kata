@@ -25,22 +25,22 @@ class GildedRose
 
     for i in 0..(@items.size-1)
       if (@items[i].name != AGED_BRIE && @items[i].name != BACKSTAGE)
-        if (@items[i].quality > 0)
+        if quality_above(@items[i], 0)
           if (@items[i].name != SULFURAS)
             reduce_quality(@items[i])
           end
         end
       else
-        if (@items[i].quality < 50)
+        if quality_below(@items[i], 50)
           increase_quality(@items[i])
           if (@items[i].name == BACKSTAGE)
             if (@items[i].sell_in < 11)
-              if (@items[i].quality < 50)
+              if quality_below(@items[i], 50)
                 increase_quality(@items[i])
               end
             end
             if (@items[i].sell_in < 6)
-              if (@items[i].quality < 50)
+              if quality_below @items[i], 50
                 increase_quality(@items[i])
               end
             end
@@ -53,7 +53,7 @@ class GildedRose
       if (@items[i].sell_in < 0)
         if (@items[i].name != AGED_BRIE)
           if (@items[i].name != BACKSTAGE)
-            if (@items[i].quality > 0)
+            if quality_above @items[i], 0
               if (@items[i].name != SULFURAS)
                 reduce_quality(@items[i])
               end
@@ -62,7 +62,7 @@ class GildedRose
             zero_out_quality(@items[i])
           end
         else
-          if (@items[i].quality < 50)
+          if quality_below @items[i], 50
             increase_quality(@items[i])
           end
         end
@@ -84,5 +84,13 @@ class GildedRose
 
   def reduce_sell_in(item)
     item.sell_in -= 1
+  end
+
+  def quality_below(item, threshhold)
+    item.quality < threshhold
+  end
+
+  def quality_above(item, threshhold)
+    item.quality > threshhold
   end
 end
