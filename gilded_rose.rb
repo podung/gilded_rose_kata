@@ -48,7 +48,7 @@ class GildedRose
         end
       end
       if (@items[i].name != SULFURAS)
-        @items[i].sell_in = @items[i].sell_in - 1;
+        reduce_sell_in(@items[i])
       end
       if (@items[i].sell_in < 0)
         if (@items[i].name != AGED_BRIE)
@@ -80,5 +80,9 @@ class GildedRose
 
   def zero_out_quality(item)
     item.quality = 0
+  end
+
+  def reduce_sell_in(item)
+    item.sell_in -= 1
   end
 end
