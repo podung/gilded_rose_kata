@@ -23,51 +23,51 @@ class GildedRose
 
   def update_quality
 
-    for i in 0..(@items.size-1)
-      if (@items[i].name != AGED_BRIE && @items[i].name != BACKSTAGE)
-        if quality_above(@items[i], 0)
-          if (@items[i].name != SULFURAS)
-            reduce_quality(@items[i])
+    @items.each { |item|
+      if (item.name != AGED_BRIE && item.name != BACKSTAGE)
+        if quality_above(item, 0)
+          if (item.name != SULFURAS)
+            reduce_quality(item)
           end
         end
       else
-        if quality_below(@items[i], 50)
-          increase_quality(@items[i])
-          if (@items[i].name == BACKSTAGE)
-            if (@items[i].sell_in < 11)
-              if quality_below(@items[i], 50)
-                increase_quality(@items[i])
+        if quality_below(item, 50)
+          increase_quality(item)
+          if (item.name == BACKSTAGE)
+            if (item.sell_in < 11)
+              if quality_below(item, 50)
+                increase_quality(item)
               end
             end
-            if (@items[i].sell_in < 6)
-              if quality_below @items[i], 50
-                increase_quality(@items[i])
+            if (item.sell_in < 6)
+              if quality_below item, 50
+                increase_quality(item)
               end
             end
           end
         end
       end
-      if (@items[i].name != SULFURAS)
-        reduce_sell_in(@items[i])
+      if (item.name != SULFURAS)
+        reduce_sell_in(item)
       end
-      if (@items[i].sell_in < 0)
-        if (@items[i].name != AGED_BRIE)
-          if (@items[i].name != BACKSTAGE)
-            if quality_above @items[i], 0
-              if (@items[i].name != SULFURAS)
-                reduce_quality(@items[i])
+      if (item.sell_in < 0)
+        if (item.name != AGED_BRIE)
+          if (item.name != BACKSTAGE)
+            if quality_above item, 0
+              if (item.name != SULFURAS)
+                reduce_quality(item)
               end
             end
           else
-            zero_out_quality(@items[i])
+            zero_out_quality(item)
           end
         else
-          if quality_below @items[i], 50
-            increase_quality(@items[i])
+          if quality_below item, 50
+            increase_quality(item)
           end
         end
       end
-    end
+    }
   end
 
   def reduce_quality(item)
