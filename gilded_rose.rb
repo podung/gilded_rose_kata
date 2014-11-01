@@ -29,21 +29,15 @@ class GildedRose
       end
 
       if [AGED_BRIE, BACKSTAGE].include? item.name
-        if quality_below(item, 50)
-          increase_quality(item)
-        end
+        increase_quality(item)
       end
 
       if item.name == BACKSTAGE
         if (item.sell_in < 11)
-          if quality_below(item, 50)
-            increase_quality(item)
-          end
+          increase_quality(item)
         end
         if (item.sell_in < 6)
-          if quality_below item, 50
-            increase_quality(item)
-          end
+          increase_quality(item)
         end
       end
 
@@ -63,9 +57,7 @@ class GildedRose
             zero_out_quality(item)
           end
         else
-          if quality_below item, 50
-            increase_quality(item)
-          end
+          increase_quality(item)
         end
       end
     }
@@ -76,7 +68,7 @@ class GildedRose
   end
 
   def increase_quality(item)
-    item.quality += 1
+    item.quality += 1 if item.quality < 50
   end
 
   def zero_out_quality(item)
