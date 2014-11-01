@@ -24,11 +24,9 @@ class GildedRose
   def update_quality
 
     @items.each { |item|
-      if [DEXTERITY, ELIXIR, SULFURAS, CONJURED].include?(item.name)
+      if [DEXTERITY, ELIXIR, CONJURED].include?(item.name)
         if quality_above(item, 0)
-          if (item.name != SULFURAS)
-            reduce_quality(item)
-          end
+          reduce_quality(item)
         end
       end
 
