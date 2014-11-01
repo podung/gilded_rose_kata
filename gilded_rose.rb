@@ -24,30 +24,33 @@ class GildedRose
   def update_quality
 
     @items.each { |item|
-      if [DEXTERITY, ELIXIR, CONJURED].include?(item.name)
+      if [DEXTERITY, ELIXIR, CONJURED].include? item.name
         reduce_quality(item) if item.quality > 0
       end
 
-      if (item.name == AGED_BRIE || item.name == BACKSTAGE)
+      if [AGED_BRIE, BACKSTAGE].include? item.name
         if quality_below(item, 50)
           increase_quality(item)
-          if (item.name == BACKSTAGE)
-            if (item.sell_in < 11)
-              if quality_below(item, 50)
-                increase_quality(item)
-              end
-            end
-            if (item.sell_in < 6)
-              if quality_below item, 50
-                increase_quality(item)
-              end
-            end
+        end
+      end
+
+      if item.name == BACKSTAGE
+        if (item.sell_in < 11)
+          if quality_below(item, 50)
+            increase_quality(item)
+          end
+        end
+        if (item.sell_in < 6)
+          if quality_below item, 50
+            increase_quality(item)
           end
         end
       end
+
       if (item.name != SULFURAS)
         reduce_sell_in(item)
       end
+
       if (item.sell_in < 0)
         if (item.name != AGED_BRIE)
           if (item.name != BACKSTAGE)
