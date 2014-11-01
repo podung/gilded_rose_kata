@@ -59,7 +59,7 @@ class GildedRose
               end
             end
           else
-            @items[i].quality = @items[i].quality - @items[i].quality
+            zero_out_quality(@items[i])
           end
         else
           if (@items[i].quality < 50)
@@ -76,5 +76,9 @@ class GildedRose
 
   def increase_quality(item)
     item.quality += 1
+  end
+
+  def zero_out_quality(item)
+    item.quality = 0
   end
 end
