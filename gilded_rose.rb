@@ -31,11 +31,12 @@ class GildedRose
         reduce_quality(item)
       end
 
-      if [AGED_BRIE, BACKSTAGE].include? item.name
+      if [AGED_BRIE].include? item.name
         increase_quality(item)
       end
 
       if item.name == BACKSTAGE
+        increase_quality(item)
         if (item.sell_in < 11)
           increase_quality(item)
         end
