@@ -50,10 +50,8 @@ class GildedRose
           increase_quality(item)
         elsif [BACKSTAGE].include? item.name
           zero_out_quality(item)
-        elsif
-          if (item.name != SULFURAS)
-            reduce_quality(item)
-          end
+        elsif [DEXTERITY, ELIXIR, CONJURED].include? item.name
+          reduce_quality(item)
         end
       end
     }
