@@ -48,9 +48,13 @@ class GildedRose
       if (item.sell_in < 0)
         if [AGED_BRIE].include? item.name
           increase_quality(item)
-        elsif [BACKSTAGE].include? item.name
+        end
+
+        if [BACKSTAGE].include? item.name
           zero_out_quality(item)
-        elsif [DEXTERITY, ELIXIR, CONJURED].include? item.name
+        end
+
+        if [DEXTERITY, ELIXIR, CONJURED].include? item.name
           reduce_quality(item)
         end
       end
