@@ -29,28 +29,19 @@ class GildedRose
     @items.each { |item|
       if [DEXTERITY, ELIXIR, CONJURED].include? item.name
         reduce_quality(item)
+        reduce_quality(item) if expired?(item)
       end
 
       if [AGED_BRIE].include? item.name
         increase_quality(item)
+        increase_quality(item) if expired?(item)
       end
 
       if [BACKSTAGE].include? item.name
         increase_quality(item)
         increase_quality(item) if item.sell_in < 11
         increase_quality(item) if item.sell_in < 6
-      end
-
-      if [AGED_BRIE].include? item.name
-        increase_quality(item) if expired?(item)
-      end
-
-      if [BACKSTAGE].include? item.name
         zero_out_quality(item) if expired?(item)
-      end
-
-      if [DEXTERITY, ELIXIR, CONJURED].include? item.name
-        reduce_quality(item) if expired?(item)
       end
 
       if [DEXTERITY, AGED_BRIE, ELIXIR, BACKSTAGE, CONJURED].include? item.name
