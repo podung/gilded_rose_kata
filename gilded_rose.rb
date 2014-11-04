@@ -48,12 +48,12 @@ class GildedRose
       if (item.sell_in < 0)
         if [AGED_BRIE].include? item.name
           increase_quality(item)
-        elsif (item.name != BACKSTAGE)
+        elsif [BACKSTAGE].include? item.name
+          zero_out_quality(item)
+        elsif
           if (item.name != SULFURAS)
             reduce_quality(item)
           end
-        else
-          zero_out_quality(item)
         end
       end
     }
