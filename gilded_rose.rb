@@ -41,11 +41,7 @@ class GildedRose
         increase_quality(item) if item.sell_in < 6
       end
 
-      if [DEXTERITY, AGED_BRIE, ELIXIR, BACKSTAGE, CONJURED].include? item.name
-        reduce_sell_in(item)
-      end
-
-      if (item.sell_in < 0)
+      if expired?(item)
         if [AGED_BRIE].include? item.name
           increase_quality(item)
         end
@@ -57,6 +53,10 @@ class GildedRose
         if [DEXTERITY, ELIXIR, CONJURED].include? item.name
           reduce_quality(item)
         end
+      end
+
+      if [DEXTERITY, AGED_BRIE, ELIXIR, BACKSTAGE, CONJURED].include? item.name
+        reduce_sell_in(item)
       end
     }
   end
@@ -75,5 +75,9 @@ class GildedRose
 
   def reduce_sell_in(item)
     item.sell_in -= 1
+  end
+
+  def expired?(item)
+    item.sell_in <= 0
   end
 end
