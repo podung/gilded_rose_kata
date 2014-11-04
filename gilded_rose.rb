@@ -35,13 +35,13 @@ class GildedRose
         increase_quality(item)
       end
 
-      if item.name == BACKSTAGE
+      if [BACKSTAGE].include? item.name
         increase_quality(item)
         increase_quality(item) if item.sell_in < 11
         increase_quality(item) if item.sell_in < 6
       end
 
-      if (item.name != SULFURAS)
+      if [DEXTERITY, AGED_BRIE, ELIXIR, BACKSTAGE, CONJURED].include? item.name
         reduce_sell_in(item)
       end
 
