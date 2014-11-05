@@ -1,4 +1,5 @@
 require './item_wrapper.rb'
+require './standard_item.rb'
 
 class GildedRose
   DEXTERITY = "+5 Dexterity Vest"
@@ -14,21 +15,18 @@ class GildedRose
 
   def initialize
     @items = []
-    @items << ItemWrapper.new(DEXTERITY, 10, 20)
+    @items << StandardItem.new(DEXTERITY, 10, 20)
+    @items << StandardItem.new(ELIXIR, 5, 7)
+    @items << StandardItem.new(CONJURED, 3, 6)
     @items << ItemWrapper.new(AGED_BRIE, 2, 0)
-    @items << ItemWrapper.new(ELIXIR, 5, 7)
     @items << ItemWrapper.new(SULFURAS, 0, 80)
     @items << ItemWrapper.new(BACKSTAGE, 15, 20)
-    @items << ItemWrapper.new(CONJURED, 3, 6)
   end
 
   def update_quality
 
     @items.each { |item|
-      if [DEXTERITY, ELIXIR, CONJURED].include? item.name
-        item.reduce_quality
-        item.reduce_quality if item.expired?
-      end
+      item.update_quality if item.is_a? StandardItem
 
       if [AGED_BRIE].include? item.name
         item.increase_quality

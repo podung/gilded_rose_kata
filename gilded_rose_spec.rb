@@ -3,12 +3,12 @@ require "rspec"
 require "rspec/its"
 
 describe GildedRose do
-  let(:dexterity) { ItemWrapper.new("+5 Dexterity Vest", 10, 20) }
+  let(:dexterity) { StandardItem.new("+5 Dexterity Vest", 10, 20) }
+  let(:elixir)    { StandardItem.new("Elixir of the Mongoose", 5, 7) }
+  let(:conjured)  { StandardItem.new("Conjured Mana Cake", 3, 6) }
   let(:aged_brie) { ItemWrapper.new("Aged Brie", 2, 0) }
-  let(:elixir)    { ItemWrapper.new("Elixir of the Mongoose", 5, 7) }
   let(:sulfuras)  { ItemWrapper.new("Sulfuras, Hand of Ragnaros", 0, 80) }
   let(:backstage) { ItemWrapper.new("Backstage passes to a TAFKAL80ETC concert", 15, 20) }
-  let(:conjured)  { ItemWrapper.new("Conjured Mana Cake", 3, 6) }
 
   describe "calling update_quality" do
     let(:described) { described_class.new }
@@ -40,7 +40,7 @@ describe GildedRose do
       end
 
       context "with expired sell_in" do
-        let(:items) { [ ItemWrapper.new(name, 0, 10) ] }
+        let(:items) { [ StandardItem.new(name, 0, 10) ] }
         let(:fine_cheese) { name }
 
         context "its quality degrades twice as fast" do
@@ -57,7 +57,7 @@ describe GildedRose do
       end
 
       context "with 0 quality" do
-        let(:items) { [ ItemWrapper.new(name, 10, 0) ] }
+        let(:items) { [ StandardItem.new(name, 10, 0) ] }
         let(:fine_cheese) { name }
 
         context "its quality never goes below zero" do
