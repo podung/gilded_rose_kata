@@ -1,4 +1,4 @@
-require './item.rb'
+require_relative 'item.rb'
 
 class ItemWrapper < Item
   MAX_QUALITY = 50

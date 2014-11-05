@@ -1,4 +1,4 @@
-require './item_wrapper.rb'
+require_relative 'item_wrapper.rb'
 
 class StandardItem < ItemWrapper
   def initialization(name, sell_in, quality)

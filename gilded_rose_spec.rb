@@ -1,4 +1,4 @@
-require './gilded_rose.rb'
+require_relative './gilded_rose.rb'
 require "rspec"
 require "rspec/its"
 

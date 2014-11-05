@@ -1,5 +1,5 @@
-require './item_wrapper.rb'
-require './standard_item.rb'
+require_relative 'items/item_wrapper.rb'
+require_relative 'items/standard_item.rb'
 
 class GildedRose
   DEXTERITY = "+5 Dexterity Vest"
