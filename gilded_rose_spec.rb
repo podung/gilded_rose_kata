@@ -6,7 +6,7 @@ describe GildedRose do
   let(:dexterity) { StandardItem.new("+5 Dexterity Vest", 10, 20) }
   let(:elixir)    { StandardItem.new("Elixir of the Mongoose", 5, 7) }
   let(:conjured)  { StandardItem.new("Conjured Mana Cake", 3, 6) }
-  let(:aged_brie) { ItemWrapper.new("Aged Brie", 2, 0) }
+  let(:aged_brie) { AgedBrie.new("Aged Brie", 2, 0) }
   let(:sulfuras)  { ItemWrapper.new("Sulfuras, Hand of Ragnaros", 0, 80) }
   let(:backstage) { ItemWrapper.new("Backstage passes to a TAFKAL80ETC concert", 15, 20) }
 
@@ -84,12 +84,12 @@ describe GildedRose do
       end
 
       context "when already at max quality" do
-        let(:items) { [ ItemWrapper.new(aged_brie.name, 2, 50) ] }
+        let(:items) { [ AgedBrie.new(aged_brie.name, 2, 50) ] }
         its(:quality) { should eq 50 }
       end
 
       context "when expired" do
-        let(:items) { [ ItemWrapper.new(aged_brie.name, 0, 20) ] }
+        let(:items) { [ AgedBrie.new(aged_brie.name, 0, 20) ] }
 
         context "quality increases twice as fast" do
           its(:quality) { should eq 22 }
