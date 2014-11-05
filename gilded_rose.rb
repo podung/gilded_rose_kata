@@ -1,4 +1,4 @@
-require './item.rb'
+require './item_wrapper.rb'
 
 class GildedRose
   DEXTERITY = "+5 Dexterity Vest"
@@ -8,65 +8,44 @@ class GildedRose
   BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert"
   CONJURED  = "Conjured Mana Cake"
 
-  MAX_QUALITY = 50
-  MIN_QUALITY = 0
 
   attr_accessor :items
   @items = []
 
   def initialize
     @items = []
-    @items << Item.new(DEXTERITY, 10, 20)
-    @items << Item.new(AGED_BRIE, 2, 0)
-    @items << Item.new(ELIXIR, 5, 7)
-    @items << Item.new(SULFURAS, 0, 80)
-    @items << Item.new(BACKSTAGE, 15, 20)
-    @items << Item.new(CONJURED, 3, 6)
+    @items << ItemWrapper.new(DEXTERITY, 10, 20)
+    @items << ItemWrapper.new(AGED_BRIE, 2, 0)
+    @items << ItemWrapper.new(ELIXIR, 5, 7)
+    @items << ItemWrapper.new(SULFURAS, 0, 80)
+    @items << ItemWrapper.new(BACKSTAGE, 15, 20)
+    @items << ItemWrapper.new(CONJURED, 3, 6)
   end
 
   def update_quality
 
     @items.each { |item|
       if [DEXTERITY, ELIXIR, CONJURED].include? item.name
-        reduce_quality(item)
-        reduce_quality(item) if expired?(item)
+        item.reduce_quality
+        item.reduce_quality if item.expired?
       end
 
       if [AGED_BRIE].include? item.name
-        increase_quality(item)
-        increase_quality(item) if expired?(item)
+        item.increase_quality
+        item.increase_quality if item.expired?
       end
 
       if [BACKSTAGE].include? item.name
-        increase_quality(item)
-        increase_quality(item) if item.sell_in < 11
-        increase_quality(item) if item.sell_in < 6
-        zero_out_quality(item) if expired?(item)
+        item.increase_quality
+        item.increase_quality if item.sell_in < 11
+        item.increase_quality if item.sell_in < 6
+        item.zero_out_quality if item.expired?
       end
 
       if [DEXTERITY, AGED_BRIE, ELIXIR, BACKSTAGE, CONJURED].include? item.name
-        reduce_sell_in(item)
+        item.reduce_sell_in
       end
     }
   end
-
-  def reduce_quality(item)
-    item.quality -= 1 if item.quality > MIN_QUALITY
-  end
-
-  def increase_quality(item)
-    item.quality += 1 if item.quality < MAX_QUALITY
-  end
-
-  def zero_out_quality(item)
-    item.quality = 0
-  end
-
-  def reduce_sell_in(item)
-    item.sell_in -= 1
-  end
-
-  def expired?(item)
-    item.sell_in <= 0
-  end
 end
+
