@@ -48,4 +48,3 @@ class GildedRose
     }
   end
 end
-
