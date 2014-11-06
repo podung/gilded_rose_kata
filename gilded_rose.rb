@@ -27,7 +27,6 @@ class GildedRose
   end
 
   def update_quality
-
     @items.each do |item|
       item.update_quality
       item.reduce_sell_in
