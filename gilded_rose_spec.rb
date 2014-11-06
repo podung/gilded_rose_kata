@@ -101,19 +101,19 @@ describe GildedRose do
       let(:fine_cheese) { sulfuras.name }
 
       context "when not expired" do
-        let(:items) { [ ItemWrapper.new(sulfuras.name, 3, 80) ] }
+        let(:items) { [ Sulfuras.new(sulfuras.name, 3, 80) ] }
 
         its(:quality) { should eq 80 }
       end
 
       context "when expired" do
-        let(:items) { [ ItemWrapper.new(sulfuras.name, 0, 80) ] }
+        let(:items) { [ Sulfuras.new(sulfuras.name, 0, 80) ] }
 
         its(:quality) { should eq 80 }
       end
 
       context "if quality ever happened to be below 80" do
-        let(:items) { [ ItemWrapper.new(sulfuras.name, 0, 35) ] }
+        let(:items) { [ Sulfuras.new(sulfuras.name, 0, 35) ] }
 
         its(:quality) { should eq 35 }
       end
