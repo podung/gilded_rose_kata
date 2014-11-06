@@ -1,6 +1,7 @@
 require_relative 'items/item_wrapper.rb'
 require_relative 'items/standard_item.rb'
 require_relative 'items/aged_brie.rb'
+require_relative 'items/backstage.rb'
 
 class GildedRose
   DEXTERITY = "+5 Dexterity Vest"
@@ -21,7 +22,7 @@ class GildedRose
     @items << StandardItem.new(CONJURED, 3, 6)
     @items << AgedBrie.new(AGED_BRIE, 2, 0)
     @items << ItemWrapper.new(SULFURAS, 0, 80)
-    @items << ItemWrapper.new(BACKSTAGE, 15, 20)
+    @items << Backstage.new(BACKSTAGE, 15, 20)
   end
 
   def update_quality
@@ -29,13 +30,7 @@ class GildedRose
     @items.each { |item|
       item.update_quality if item.instance_of? StandardItem
       item.update_quality if item.instance_of? AgedBrie
-
-      if [BACKSTAGE].include? item.name
-        item.increase_quality
-        item.increase_quality if item.sell_in < 11
-        item.increase_quality if item.sell_in < 6
-        item.zero_out_quality if item.expired?
-      end
+      item.update_quality if item.instance_of? Backstage
 
       if [DEXTERITY, AGED_BRIE, ELIXIR, BACKSTAGE, CONJURED].include? item.name
         item.reduce_sell_in

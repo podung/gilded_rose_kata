@@ -8,7 +8,7 @@ describe GildedRose do
   let(:conjured)  { StandardItem.new("Conjured Mana Cake", 3, 6) }
   let(:aged_brie) { AgedBrie.new("Aged Brie", 2, 0) }
   let(:sulfuras)  { ItemWrapper.new("Sulfuras, Hand of Ragnaros", 0, 80) }
-  let(:backstage) { ItemWrapper.new("Backstage passes to a TAFKAL80ETC concert", 15, 20) }
+  let(:backstage) { Backstage.new("Backstage passes to a TAFKAL80ETC concert", 15, 20) }
 
   describe "calling update_quality" do
     let(:described) { described_class.new }
@@ -133,7 +133,7 @@ describe GildedRose do
       context "when 10 days down to 6" do
         10.downto(6) { |i|
           context "when #{i} days should increase by 2" do
-            let(:item) { ItemWrapper.new(backstage.name, i, 10) }
+            let(:item) { Backstage.new(backstage.name, i, 10) }
             its(:quality) { should eq (12) }
           end
         }
@@ -142,14 +142,14 @@ describe GildedRose do
       context "when 5 days down to 1" do
         5.downto(1) { |i|
           context "when #{i} days should increase by 3" do
-            let(:item) { ItemWrapper.new(backstage.name, i, 10) }
+            let(:item) { Backstage.new(backstage.name, i, 10) }
             its(:quality) { should eq (13) }
           end
         }
       end
 
       context "when 0 days should go to 0" do
-        let(:item) { ItemWrapper.new(backstage.name, 0, 10) }
+        let(:item) { Backstage.new(backstage.name, 0, 10) }
         its(:quality) { should eq (0) }
       end
     end
