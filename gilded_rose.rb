@@ -30,10 +30,7 @@ class GildedRose
 
     @items.each do |item|
       item.update_quality
-
-      if [DEXTERITY, AGED_BRIE, ELIXIR, BACKSTAGE, CONJURED].include? item.name
-        item.reduce_sell_in
-      end
+      item.reduce_sell_in
     end
   end
 end

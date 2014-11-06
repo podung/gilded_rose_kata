@@ -6,4 +6,5 @@ class Sulfuras < ItemWrapper
   end
 
   def update_quality; end #noop
+  def reduce_sell_in; end #noop overriding base behavior
 end
