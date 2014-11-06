@@ -5,25 +5,17 @@ require_relative 'items/backstage.rb'
 require_relative 'items/sulfuras.rb'
 
 class GildedRose
-  DEXTERITY = "+5 Dexterity Vest"
-  AGED_BRIE = "Aged Brie"
-  ELIXIR    = "Elixir of the Mongoose"
-  SULFURAS  = "Sulfuras, Hand of Ragnaros"
-  BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert"
-  CONJURED  = "Conjured Mana Cake"
-
-
   attr_accessor :items
   @items = []
 
   def initialize
     @items = []
-    @items << StandardItem.new(DEXTERITY, 10, 20)
-    @items << StandardItem.new(ELIXIR, 5, 7)
-    @items << StandardItem.new(CONJURED, 3, 6)
-    @items << AgedBrie.new(AGED_BRIE, 2, 0)
-    @items << ItemWrapper.new(SULFURAS, 0, 80)
-    @items << Backstage.new(BACKSTAGE, 15, 20)
+    @items << Dexterity.new(10, 20)
+    @items << Elixer.new(5, 7)
+    @items << Conjured.new(3, 6)
+    @items << AgedBrie.new(2, 0)
+    @items << Sulfuras.new(0, 80)
+    @items << Backstage.new(15, 20)
   end
 
   def update_quality

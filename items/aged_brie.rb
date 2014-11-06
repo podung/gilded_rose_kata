@@ -1,8 +1,8 @@
 require_relative 'item_wrapper.rb'
 
 class AgedBrie < ItemWrapper
-  def initialization(name, sell_in, quality)
-    super(name, sell_in, quality)
+  def initialize(sell_in, quality)
+    super("Aged Brie", sell_in, quality)
   end
 
   def update_quality

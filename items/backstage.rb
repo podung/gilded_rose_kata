@@ -1,8 +1,8 @@
 require_relative 'item_wrapper.rb'
 
 class Backstage < ItemWrapper
-  def initialization(name, sell_in, quality)
-    super(name, sell_in, quality)
+  def initialize(sell_in, quality)
+    super("Backstage passes to a TAFKAL80ETC concert", sell_in, quality)
   end
 
   def update_quality

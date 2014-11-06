@@ -3,12 +3,12 @@ require "rspec"
 require "rspec/its"
 
 describe GildedRose do
-  let(:dexterity) { StandardItem.new("+5 Dexterity Vest", 10, 20) }
-  let(:elixir)    { StandardItem.new("Elixir of the Mongoose", 5, 7) }
-  let(:conjured)  { StandardItem.new("Conjured Mana Cake", 3, 6) }
-  let(:aged_brie) { AgedBrie.new("Aged Brie", 2, 0) }
-  let(:sulfuras)  { ItemWrapper.new("Sulfuras, Hand of Ragnaros", 0, 80) }
-  let(:backstage) { Backstage.new("Backstage passes to a TAFKAL80ETC concert", 15, 20) }
+  let(:dexterity) { Dexterity.new(10, 20) }
+  let(:elixir)    { Elixer.new(5, 7) }
+  let(:conjured)  { Conjured.new(3, 6) }
+  let(:aged_brie) { AgedBrie.new(2, 0) }
+  let(:sulfuras)  { Sulfuras.new(0, 80) }
+  let(:backstage) { Backstage.new(15, 20) }
 
   describe "calling update_quality" do
     let(:described) { described_class.new }
@@ -84,12 +84,12 @@ describe GildedRose do
       end
 
       context "when already at max quality" do
-        let(:items) { [ AgedBrie.new(aged_brie.name, 2, 50) ] }
+        let(:items) { [ AgedBrie.new(2, 50) ] }
         its(:quality) { should eq 50 }
       end
 
       context "when expired" do
-        let(:items) { [ AgedBrie.new(aged_brie.name, 0, 20) ] }
+        let(:items) { [ AgedBrie.new(0, 20) ] }
 
         context "quality increases twice as fast" do
           its(:quality) { should eq 22 }
@@ -101,19 +101,19 @@ describe GildedRose do
       let(:fine_cheese) { sulfuras.name }
 
       context "when not expired" do
-        let(:items) { [ Sulfuras.new(sulfuras.name, 3, 80) ] }
+        let(:items) { [ Sulfuras.new(3, 80) ] }
 
         its(:quality) { should eq 80 }
       end
 
       context "when expired" do
-        let(:items) { [ Sulfuras.new(sulfuras.name, 0, 80) ] }
+        let(:items) { [ Sulfuras.new(0, 80) ] }
 
         its(:quality) { should eq 80 }
       end
 
       context "if quality ever happened to be below 80" do
-        let(:items) { [ Sulfuras.new(sulfuras.name, 0, 35) ] }
+        let(:items) { [ Sulfuras.new(0, 35) ] }
 
         its(:quality) { should eq 35 }
       end
@@ -133,7 +133,7 @@ describe GildedRose do
       context "when 10 days down to 6" do
         10.downto(6) { |i|
           context "when #{i} days should increase by 2" do
-            let(:item) { Backstage.new(backstage.name, i, 10) }
+            let(:item) { Backstage.new(i, 10) }
             its(:quality) { should eq (12) }
           end
         }
@@ -142,14 +142,14 @@ describe GildedRose do
       context "when 5 days down to 1" do
         5.downto(1) { |i|
           context "when #{i} days should increase by 3" do
-            let(:item) { Backstage.new(backstage.name, i, 10) }
+            let(:item) { Backstage.new(i, 10) }
             its(:quality) { should eq (13) }
           end
         }
       end
 
       context "when 0 days should go to 0" do
-        let(:item) { Backstage.new(backstage.name, 0, 10) }
+        let(:item) { Backstage.new(0, 10) }
         its(:quality) { should eq (0) }
       end
     end
