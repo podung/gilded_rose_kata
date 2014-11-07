@@ -1,5 +1,7 @@
 require_relative 'items/item_wrapper.rb'
-require_relative 'items/standard_item.rb'
+require_relative 'items/dexterity.rb'
+require_relative 'items/elixer.rb'
+require_relative 'items/conjured.rb'
 require_relative 'items/aged_brie.rb'
 require_relative 'items/backstage.rb'
 require_relative 'items/sulfuras.rb'
