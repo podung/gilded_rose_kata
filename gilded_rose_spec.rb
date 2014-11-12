@@ -74,6 +74,31 @@ describe GildedRose do
       end
     end
 
+    context "conjured" do
+      let(:items) { [ conjured ] }
+      let(:fine_cheese) { conjured.name }
+
+      context "with positive sell_in" do
+        its(:sell_in) { should eq 2 }
+        its(:quality) { should eq 4 }
+      end
+
+      context "with expired sell_in" do
+        let(:items) { [ Conjured.new(0,10) ] }
+
+        context "its quality degrades twice as fast" do
+          its(:quality) { should eq 6 }
+        end
+      end
+
+      context "with 0 quality" do
+        let(:items) { [ Conjured.new(0,0) ] }
+        context "its quality never goes below zero" do
+          its(:quality) { should eq 0 }
+        end
+      end
+    end
+
     context "aged brie" do
       let(:items) { [ aged_brie ] }
       let(:fine_cheese) { aged_brie.name }
